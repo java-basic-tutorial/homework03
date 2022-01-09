@@ -102,23 +102,28 @@ public class CountryTest {
     @DisplayName("Проверка метода подсчета количества жителей")
     void inhabitantsCount() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> cls = Class.forName(CLASS_NAME);
-        Object obj = cls.getDeclaredConstructor().newInstance();
 
-        Class<?> argClass = Class.forName(CityTest.CLASS_NAME);
-        Method addCity = cls.getDeclaredMethod("addCity", argClass);
+        Class<?> cityClass = Class.forName(CityTest.CLASS_NAME);
+        Class<?> strClass = String.class;
+        Object capital = TestUtil.getExpected(cityClass);
+        Object obj = cls.getDeclaredConstructor(strClass, strClass, strClass, cityClass)
+                .newInstance("", "", "", capital);
 
-        Object city1 = TestUtil.getExpected(argClass);
+
+        Method addCity = cls.getDeclaredMethod("addCity", cityClass);
+        Object city1 = TestUtil.getExpected(cityClass);
         addCity.invoke(obj, city1);
-        Object city2 = TestUtil.getExpected(argClass);
+        Object city2 = TestUtil.getExpected(cityClass);
         addCity.invoke(obj, city2);
-        Object city3 = TestUtil.getExpected(argClass);
+        Object city3 = TestUtil.getExpected(cityClass);
         addCity.invoke(obj, city3);
 
-        Method getCityInhabitants = argClass.getDeclaredMethod("getInhabitants");
+        Method getCityInhabitants = cityClass.getDeclaredMethod("getInhabitants");
         int expectedInhabitants = 0;
         expectedInhabitants += (int)getCityInhabitants.invoke(city1);
         expectedInhabitants += (int)getCityInhabitants.invoke(city2);
         expectedInhabitants += (int)getCityInhabitants.invoke(city3);
+        expectedInhabitants += (int)getCityInhabitants.invoke(capital);
 
         Method getInhabitants = cls.getDeclaredMethod("getInhabitants");
         Object inhabitants = getInhabitants.invoke(obj);
