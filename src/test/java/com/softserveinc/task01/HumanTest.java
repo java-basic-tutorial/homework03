@@ -40,7 +40,7 @@ public class HumanTest {
     @Order(2)
     @ParameterizedTest(name = "{0}")
     @DisplayName("Проверка закрытого поля")
-    @ValueSource(strings = {"fullName", "dateOfBirth", "phone"})
+    @ValueSource(strings = {"firstName", "lastName", "dateOfBirth", "phone"})
     void fieldExists(String fieldName) throws NoSuchFieldException {
         hasPrivateNoStaticField(HUMAN_CLAZZ, fieldName);
     }
@@ -48,7 +48,7 @@ public class HumanTest {
     @Order(2)
     @ParameterizedTest(name = "{0}")
     @DisplayName("Проверка геттеров")
-    @ValueSource(strings = {"getFullName", "getDateOfBirth", "getPhone"})
+    @ValueSource(strings = {"getFirstName", "getLastName", "getDateOfBirth", "getPhone"})
     void getterExists(String getterName) throws NoSuchMethodException {
         hasPublicNoStaticMethod(HUMAN_CLAZZ, getterName);
     }
@@ -56,7 +56,7 @@ public class HumanTest {
     @Order(3)
     @ParameterizedTest(name = "{0}")
     @DisplayName("Проверка сеттеров")
-    @ValueSource(strings = {"setFullName", "setDateOfBirth", "setPhone"})
+    @ValueSource(strings = {"setFirstName", "setLastName", "setDateOfBirth", "setPhone"})
     void setterExists(String setterName) throws NoSuchMethodException {
         hasPublicNoStaticMethod(HUMAN_CLAZZ, setterName, String.class);
     }
@@ -64,7 +64,7 @@ public class HumanTest {
     @Order(4)
     @ParameterizedTest(name = "{0}")
     @DisplayName("Проверка сеттеров/геттеров")
-    @ValueSource(strings = {"fullName", "dateOfBirth", "phone"})
+    @ValueSource(strings = {"firstName", "lastName", "dateOfBirth", "phone"})
     void setterGetter(String fieldName) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> cls = Class.forName("com.softserveinc.task01.Human");
         Object human = cls.getDeclaredConstructor().newInstance();
@@ -87,16 +87,20 @@ public class HumanTest {
         Assertions.assertEquals(2, declaredConstructors.length);
 
         Class<String> str = String.class;
-        Constructor<?> ctor = cls.getDeclaredConstructor(str, str, str);
+        Constructor<?> ctor = cls.getDeclaredConstructor(str, str, str, str);
 
-        String fullName = TestUtil.randomString();
+        String firstName = TestUtil.randomString();
+        String lastName = TestUtil.randomString();
         String dateOfBirth = TestUtil.randomString();
         String phone = TestUtil.randomString();
 
-        Object human = ctor.newInstance(fullName, dateOfBirth, phone);
+        Object human = ctor.newInstance(firstName, lastName, dateOfBirth, phone);
 
-        Method getFullName = cls.getDeclaredMethod("getFullName");
-        Assertions.assertEquals(fullName, getFullName.invoke(human));
+        Method getFirstName = cls.getDeclaredMethod("getFirstName");
+        Assertions.assertEquals(firstName, getFirstName.invoke(human));
+
+        Method getLastName = cls.getDeclaredMethod("getFirstName");
+        Assertions.assertEquals(firstName, getLastName.invoke(human));
 
         Method getDateOfBirth = cls.getDeclaredMethod("getDateOfBirth");
         Assertions.assertEquals(dateOfBirth, getDateOfBirth.invoke(human));
