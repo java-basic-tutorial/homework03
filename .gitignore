@@ -25,4 +25,6 @@ hs_err_pid*
 build/
 .gradle/
 .vscode/
-.idea/
+.idea
+gradlew
+gradlew.bat
