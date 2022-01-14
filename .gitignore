@@ -26,5 +26,3 @@ build/
 .gradle/
 .vscode/
 .idea
-gradlew
-gradlew.bat
