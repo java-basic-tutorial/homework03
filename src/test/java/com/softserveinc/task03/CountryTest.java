@@ -32,14 +32,14 @@ public class CountryTest {
 
     @Test
     @Order(1)
-    @DisplayName("Проверка наличия класса Country")
+    @DisplayName("Check existence Country")
     void classExists() {
         isPublicNoStaticNoFinalNoAbstractClass(COUNTRY_CLAZZ, CLASS_NAME);
     }
 
     @Order(2)
     @ParameterizedTest(name = "{0}")
-    @DisplayName("Проверка закрытых полей")
+    @DisplayName("Check existence private fields")
     @ValueSource(strings = {"name", "continent", "code", "capital", "cities"})
     void privateFieldExists(String fieldName) throws NoSuchFieldException {
         hasPrivateNoStaticField(COUNTRY_CLAZZ, fieldName);
@@ -47,7 +47,7 @@ public class CountryTest {
 
     @Order(2)
     @ParameterizedTest(name = "{0}")
-    @DisplayName("Проверка геттеров")
+    @DisplayName("Check existence getters")
     @ValueSource(strings = {"getName", "getContinent", "getCode", "getInhabitants", "getCapital", "getCities"})
     void publicGetterExists(String getterName) throws NoSuchMethodException {
         hasPublicNoStaticMethod(COUNTRY_CLAZZ, getterName);
@@ -64,7 +64,7 @@ public class CountryTest {
 
     @Order(4)
     @ParameterizedTest(name = "{1}")
-    @DisplayName("Проверка сеттеров/геттеров")
+    @DisplayName("Check getters and setters")
     @CsvSource({"java.lang.String,name", "java.lang.String,continent", "java.lang.String,code",
             "com.softserveinc.task02.City,capital"})
     void setterGetterWork(Class<?> clazz, String fieldName) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -84,7 +84,7 @@ public class CountryTest {
 
     @Order(5)
     @Test
-    @DisplayName("Проверка метода добавления города")
+    @DisplayName("Check method addCity()")
     void addCity() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> cls = Class.forName(CLASS_NAME);
         Object obj = cls.getDeclaredConstructor().newInstance();
@@ -99,7 +99,7 @@ public class CountryTest {
 
     @Order(6)
     @Test
-    @DisplayName("Проверка метода подсчета количества жителей")
+    @DisplayName("Check method getInhabitants()")
     void inhabitantsCount() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> cls = Class.forName(CLASS_NAME);
 
@@ -132,7 +132,7 @@ public class CountryTest {
 
     @Order(7)
     @Test
-    @DisplayName("Проверка Конструкторов")
+    @DisplayName("Check constructors")
     void constructors() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
         Class<?> cls = Class.forName(CLASS_NAME);
