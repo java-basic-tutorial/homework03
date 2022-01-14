@@ -32,14 +32,14 @@ public class HumanTest {
 
     @Test
     @Order(1)
-    @DisplayName("Проверка наличия класса Human")
+    @DisplayName("Check existing class Human")
     void classExists() {
         isPublicNoStaticNoFinalNoAbstractClass(HUMAN_CLAZZ, CLASS_NAME);
     }
 
     @Order(2)
     @ParameterizedTest(name = "{0}")
-    @DisplayName("Проверка закрытого поля")
+    @DisplayName("Check private fields")
     @ValueSource(strings = {"firstName", "lastName", "dateOfBirth", "phone"})
     void fieldExists(String fieldName) throws NoSuchFieldException {
         hasPrivateNoStaticField(HUMAN_CLAZZ, fieldName);
@@ -47,7 +47,7 @@ public class HumanTest {
 
     @Order(2)
     @ParameterizedTest(name = "{0}")
-    @DisplayName("Проверка геттеров")
+    @DisplayName("Check existing getters")
     @ValueSource(strings = {"getFirstName", "getLastName", "getDateOfBirth", "getPhone"})
     void getterExists(String getterName) throws NoSuchMethodException {
         hasPublicNoStaticMethod(HUMAN_CLAZZ, getterName);
@@ -55,7 +55,7 @@ public class HumanTest {
 
     @Order(3)
     @ParameterizedTest(name = "{0}")
-    @DisplayName("Проверка сеттеров")
+    @DisplayName("Check existing setters")
     @ValueSource(strings = {"setFirstName", "setLastName", "setDateOfBirth", "setPhone"})
     void setterExists(String setterName) throws NoSuchMethodException {
         hasPublicNoStaticMethod(HUMAN_CLAZZ, setterName, String.class);
@@ -63,7 +63,7 @@ public class HumanTest {
 
     @Order(4)
     @ParameterizedTest(name = "{0}")
-    @DisplayName("Проверка сеттеров/геттеров")
+    @DisplayName("Check getters and setters")
     @ValueSource(strings = {"firstName", "lastName", "dateOfBirth", "phone"})
     void setterGetter(String fieldName) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> cls = Class.forName("com.softserveinc.task01.Human");
@@ -80,7 +80,7 @@ public class HumanTest {
 
     @Order(5)
     @Test
-    @DisplayName("Проверка Конструкторов")
+    @DisplayName("Check existing constructors")
     void constructors() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> cls = Class.forName(CLASS_NAME);
         Constructor<?>[] declaredConstructors = cls.getDeclaredConstructors();
